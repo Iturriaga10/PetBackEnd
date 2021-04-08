@@ -18,6 +18,7 @@ LOGGER = logging.getLogger(__name__)
 
 # Initialize Flask.
 app = Flask(__name__)
+app.register_blueprint(simple_page)
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/Pets'
 mongo = PyMongo(app)
 
