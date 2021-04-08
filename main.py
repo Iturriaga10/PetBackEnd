@@ -1,13 +1,46 @@
 from flask import Flask, jsonify, request, Response
 from flask_pymongo import PyMongo
+from flask_swagger_ui import get_swaggerui_blueprint
 from bson import json_util, objectid
 from bson.objectid import ObjectId
-
 import datetime
+import logging
+import json
 
+# Define logger.
+LOGGER = logging.getLogger(__name__)
+
+# Import enviroment variables.
+#if os.path.exists('.env'):
+#    LOGGER.info("Using .env file")
+#    from dotenv import load_dotenv, find_dotenv
+#    load_dotenv(find_dotenv())
+
+# Initialize Flask.
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/Pets'
 mongo = PyMongo(app)
+
+### swagger specific ###
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+
+@app.route('/swagger', methods=['GET'])
+def send_swagger():
+    response = get_swaggerui_blueprint(
+        SWAGGER_URL,
+        API_URL,
+        config={
+            'app_name': "Dogstagram"
+        }
+    )
+
+    return render_template(response)
+
+@app.route('/static/<path:path>', methods=['GET'])
+def send_static():
+    return  send_from_directory('static', path)
+### end swagger specific ###
 
 @app.route('/feed', methods=['GET'])
 def allFeed():
@@ -31,9 +64,10 @@ def PostFeed():
         name = content['name']
         image = content['image']
         description = content['description']
-        like = content['like']
     except KeyError as e:
-        return "You are missing the %s field." % e
+        # Build Response.
+        response = jsonify({'message': 'You are missing the %s field.' % e})
+        response.status_code = 400
     except:
         return "Something is wrong with the json that you try to submit."
     
@@ -43,17 +77,12 @@ def PostFeed():
         response = jsonify({'message': 'name, image, description and date field must be a string.'})
         response.status_code = 415
         return response
-
-    # Bool validation in like.
-    if (not type(like).__name__ == 'bool' ):
-        response = jsonify({'message': 'like must be a bool.'})
-        response.status_code = 415
-        return response
     
     post_id = mongo.db.feed.insert_one({ 'name': name,
                                          'image': image,
                                          'description': description,
-                                         'like': like,
+                                         'like': False,
+                                         'likeCounter': 0,
                                          'date': datetime.datetime.now() }).inserted_id
     # Build Response.
     response = jsonify({'message': str(post_id) + ' posetd successfully.'})
@@ -160,6 +189,56 @@ def PatchDescriptionFeed(id):
     response.status_code = 202
     
     return response
+
+@app.route('/feed/like/increase/<id>', methods=['PUT'])
+def IncreaseLikesFeed(id):
+    
+    # Check if the id exists.
+    find_post = mongo.db.feed.find_one({'_id': ObjectId(id), })
+    if (find_post is None):
+        # Build Response.
+        response = jsonify({'message': id + ' doesn''t exists.'})
+        response.status_code = 404
+        return response
+    
+    # Update likes in post.
+    update_post = mongo.db.feed.update_one( {'_id': ObjectId(id), }, { "$inc": { 'likeCounter': 1, }})
+    
+    # Build Response.
+    response = jsonify({'message': id + ' likeCounter updated Successfully'})
+    response.status_code = 202
+    
+    return response
+
+@app.route('/feed/like/decrease/<id>', methods=['PUT'])
+def DecreaseLikesFeed(id):
+
+    # Check if the id exists.
+    find_post = mongo.db.feed.find_one({'_id': ObjectId(id), })
+    if (find_post is None):
+        # Build Response.
+        response = jsonify({'message': id + ' doesn''t exists.'})
+        response.status_code = 404
+        return response
+    
+    # Update likes in post.
+    find_post_response = json_util.dumps(find_post)
+    find_post_result = json.loads(find_post_response)
+    
+
+    if find_post_result['likeCounter'] == 0:
+        response = jsonify({'message': 'likeCounter can''t be lower than 0.'})
+        response.status_code = 404
+        return response
+    
+    update_post = mongo.db.feed.update_one( {'_id': ObjectId(id), }, { "$inc": { 'likeCounter': -1, }})
+    
+    # Build Response.
+    response = jsonify({'message': id + ' likeCounter updated Successfully'})
+    response.status_code = 202
+    
+    return response
+
 
 @app.errorhandler(404)
 def not_found(error=None):

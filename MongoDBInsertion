@@ -11,6 +11,7 @@ db.feed.insertMany(
   "image": 'https://www.ecestaticos.com/image/clipping/557/418/7052744faf519355ca32636cf370cf63/tres-estudios-que-han-cambiado-todo-lo-que-creiamos-sobre-los-perros.jpg',
   "description": "Description Description Description Description Description Description Description Description",
   "like": true,
+  "likeCounter": 1,
   'date': new Date('2014-03-01T08:00:00Z'),
 },
 {
@@ -18,6 +19,7 @@ db.feed.insertMany(
   "image": 'https://cdn.forbes.com.mx/2018/12/perro_china-640x360.jpg',
   "description": "Description Description Description Description Description Description Description Description",
   "like": true,
+  "likeCounter": 4,
   'date': new Date('2014-03-01T08:00:00Z'),
 },
 {
@@ -25,6 +27,7 @@ db.feed.insertMany(
   "image": 'https://www.hola.com/imagenes/estar-bien/20190820147813/razas-perros-pequenos-parecen-grandes/0-711-550/razas-perro-pequenos-grandes-a.jpg',
   "description": "Description Description Description Description Description Description Description Description",
   "like": false,
+  "likeCounter": 2,
   'date': new Date('2014-03-01T08:00:00Z'),
 },
 {
@@ -32,6 +35,7 @@ db.feed.insertMany(
   "image": 'https://www.ecestaticos.com/image/clipping/557/418/7052744faf519355ca32636cf370cf63/tres-estudios-que-han-cambiado-todo-lo-que-creiamos-sobre-los-perros.jpg',
   "description": "Description Description Description Description Description Description Description Description",
   "like": true,
+  "likeCounter": 1,
   'date': new Date('2014-03-01T08:00:00Z'),
 },
 {
@@ -39,6 +43,7 @@ db.feed.insertMany(
   "image": 'https://cdn.forbes.com.mx/2018/12/perro_china-640x360.jpg',
   "description": "Description Description Description Description Description Description Description Description",
   "like": false,
+  "likeCounter": 0,
   'date': new Date('2014-03-01T08:00:00Z'),
 },
 {
@@ -46,6 +51,7 @@ db.feed.insertMany(
   "image": 'https://www.hola.com/imagenes/estar-bien/20190820147813/razas-perros-pequenos-parecen-grandes/0-711-550/razas-perro-pequenos-grandes-a.jpg',
   "description": "Description Description Description Description Description Description Description Description",
   "like": true,
+  "likeCounter": 1,
   'date': new Date('2014-03-01T08:00:00Z'),
 }]
 );
