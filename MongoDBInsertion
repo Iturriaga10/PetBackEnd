@@ -1,0 +1,55 @@
+// MongoDB Pet First Insertion
+
+// Select the database to use.
+use('Pets');
+db.feed.drop();
+
+// Insert a few documents into the sales collection.
+db.feed.insertMany(
+[{
+  "name": "Jorge Luis Borges",
+  "image": 'https://www.ecestaticos.com/image/clipping/557/418/7052744faf519355ca32636cf370cf63/tres-estudios-que-han-cambiado-todo-lo-que-creiamos-sobre-los-perros.jpg',
+  "description": "Description Description Description Description Description Description Description Description",
+  "like": true,
+  'date': new Date('2014-03-01T08:00:00Z'),
+},
+{
+  "name": "Julio Cortazar",
+  "image": 'https://cdn.forbes.com.mx/2018/12/perro_china-640x360.jpg',
+  "description": "Description Description Description Description Description Description Description Description",
+  "like": true,
+  'date': new Date('2014-03-01T08:00:00Z'),
+},
+{
+  "name": "Jorge Luis Borges",
+  "image": 'https://www.hola.com/imagenes/estar-bien/20190820147813/razas-perros-pequenos-parecen-grandes/0-711-550/razas-perro-pequenos-grandes-a.jpg',
+  "description": "Description Description Description Description Description Description Description Description",
+  "like": false,
+  'date': new Date('2014-03-01T08:00:00Z'),
+},
+{
+  "name": "Jorge Luis Borges",
+  "image": 'https://www.ecestaticos.com/image/clipping/557/418/7052744faf519355ca32636cf370cf63/tres-estudios-que-han-cambiado-todo-lo-que-creiamos-sobre-los-perros.jpg',
+  "description": "Description Description Description Description Description Description Description Description",
+  "like": true,
+  'date': new Date('2014-03-01T08:00:00Z'),
+},
+{
+  "name": "Julio Cortazar",
+  "image": 'https://cdn.forbes.com.mx/2018/12/perro_china-640x360.jpg',
+  "description": "Description Description Description Description Description Description Description Description",
+  "like": false,
+  'date': new Date('2014-03-01T08:00:00Z'),
+},
+{
+  "name": "Jorge Luis Borges",
+  "image": 'https://www.hola.com/imagenes/estar-bien/20190820147813/razas-perros-pequenos-parecen-grandes/0-711-550/razas-perro-pequenos-grandes-a.jpg',
+  "description": "Description Description Description Description Description Description Description Description",
+  "like": true,
+  'date': new Date('2014-03-01T08:00:00Z'),
+}]
+);
+
+// Run a find command to view items.
+use('Pets');
+db.feed.find({});
