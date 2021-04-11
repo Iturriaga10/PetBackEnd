@@ -19,10 +19,10 @@ if os.path.exists('.env'):
 
 # Initialize Flask.
 app = Flask(__name__)
-# app.register_blueprint(simple_page)
-# app.config['MONGO_URI'] = 'mongodb://localhost:27017/Pets'
-
 app.config['MONGO_URI'] = os.environ['MONGODB_URI']
+
+# app.register_blueprint(simple_page)
+
                            
 
 mongo = PyMongo(app)
