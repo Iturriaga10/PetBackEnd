@@ -1,1 +1,5 @@
 __pycache__/
+MongoDBInsertion
+README.md
+.gitignore
+Dockerfile

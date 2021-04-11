@@ -5,21 +5,26 @@ from bson import json_util, objectid
 from bson.objectid import ObjectId
 import datetime
 import logging
+import os
 import json
 
 # Define logger.
 LOGGER = logging.getLogger(__name__)
 
 # Import enviroment variables.
-#if os.path.exists('.env'):
-#    LOGGER.info("Using .env file")
-#    from dotenv import load_dotenv, find_dotenv
-#    load_dotenv(find_dotenv())
+if os.path.exists('.env'):
+    LOGGER.info("Using .env file")
+    from dotenv import load_dotenv, find_dotenv
+    load_dotenv(find_dotenv())
 
 # Initialize Flask.
 app = Flask(__name__)
-app.register_blueprint(simple_page)
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/Pets'
+# app.register_blueprint(simple_page)
+# app.config['MONGO_URI'] = 'mongodb://localhost:27017/Pets'
+
+app.config['MONGO_URI'] = os.environ['MONGODB_URI']
+                           
+
 mongo = PyMongo(app)
 
 ### swagger specific ###
