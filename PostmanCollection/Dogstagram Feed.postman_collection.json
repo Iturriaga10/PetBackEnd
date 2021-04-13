@@ -1,0 +1,316 @@
+{
+	"info": {
+		"_postman_id": "96315e49-7c14-4543-8d9b-cc77917cc1e3",
+		"name": "Dogstagram Feed",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all Feed.",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/feed",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"feed"
+					]
+				},
+				"description": "Get all Feed."
+			},
+			"response": []
+		},
+		{
+			"name": "Get post by Id.",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "11613e8831944d8ca05a51b3cdeff135",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Ocp-Apim-Trace",
+						"value": "true",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Mateo Iturriaga\",\n  \"image\": \"https://cdn.forbes.com.mx/2018/12/perro_china-640x360.jpg\",\n  \"description\": \"Mira mi fabuloso perro\",\n  \"like\": false,\n  \"date\": \"2014-03-01T08:00:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/feed/60749e9cf3cd3f8e0fb94901",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"feed",
+						"60749e9cf3cd3f8e0fb94901"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete post.",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "11613e8831944d8ca05a51b3cdeff135",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Ocp-Apim-Trace",
+						"value": "true",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Mateo Iturriaga\",\n  \"image\": \"https://cdn.forbes.com.mx/2018/12/perro_china-640x360.jpg\",\n  \"description\": \"Mira mi fabuloso perro\",\n  \"like\": false,\n  \"date\": \"2014-03-01T08:00:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/feed/60749e9cf3cd3f8e0fb94901",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"feed",
+						"60749e9cf3cd3f8e0fb94901"
+					]
+				},
+				"description": "Delete post."
+			},
+			"response": []
+		},
+		{
+			"name": "New post.",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "11613e8831944d8ca05a51b3cdeff135",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Ocp-Apim-Trace",
+						"value": "true",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Jorge Luis Borges\",\n  \"image\": \"https://www.infobae.com/new-resizer/OwKXkZCSJl6o9CYFh6899CXoRjU=/1200x800/filters:format(jpg):quality(85)/arc-anglerfish-arc2-prod-infobae.s3.amazonaws.com/public/RTKQTNJ3I5EX3AC55NTFBNOOYI.jpg\",\n  \"description\": \"Description Description Description Description Description Description Description Description\",\n  \"media\": {\n    \"video\": \"\",\n    \"image\": \"\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/feed",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"feed"
+					]
+				},
+				"description": "Add a new post to the feed."
+			},
+			"response": []
+		},
+		{
+			"name": "Increase likes",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/feed/like/increase/6074b2d7b782db53d4b9c620",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"feed",
+						"like",
+						"increase",
+						"6074b2d7b782db53d4b9c620"
+					]
+				},
+				"description": "Increase the number of likes"
+			},
+			"response": []
+		},
+		{
+			"name": "Decrease likes.",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/feed/like/decrease/60732e24e54e103ff848b675",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"feed",
+						"like",
+						"decrease",
+						"60732e24e54e103ff848b675"
+					]
+				},
+				"description": "Decrease likes in feed."
+			},
+			"response": []
+		},
+		{
+			"name": "Update description.",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "11613e8831944d8ca05a51b3cdeff135",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Ocp-Apim-Trace",
+						"value": "true",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Mira mi fabuloso gato.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/feed/description/606e5d9f0416dd3bb317b32e",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"feed",
+						"description",
+						"606e5d9f0416dd3bb317b32e"
+					]
+				},
+				"description": "Update post's description."
+			},
+			"response": []
+		},
+		{
+			"name": "Update image.",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "11613e8831944d8ca05a51b3cdeff135",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Ocp-Apim-Trace",
+						"value": "true",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"image\": \"https://cdn.forbes.com.mx/2018/12/perro_china-640x360.jpg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/feed/image/606e5d9f0416dd3bb317b32e",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"feed",
+						"image",
+						"606e5d9f0416dd3bb317b32e"
+					]
+				},
+				"description": "Update post's image URL."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "4ff089e1-bb34-4ad2-8c5f-c6a2efdc9b81",
+			"key": "baseURL",
+			"value": "http://0.0.0.0:5000"
+		}
+	]
+}

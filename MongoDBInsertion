@@ -8,50 +8,38 @@ db.feed.drop();
 db.feed.insertMany(
 [{
   "name": "Jorge Luis Borges",
-  "image": 'https://www.ecestaticos.com/image/clipping/557/418/7052744faf519355ca32636cf370cf63/tres-estudios-que-han-cambiado-todo-lo-que-creiamos-sobre-los-perros.jpg',
+  "image": "https://www.ecestaticos.com/image/clipping/557/418/7052744faf519355ca32636cf370cf63/tres-estudios-que-han-cambiado-todo-lo-que-creiamos-sobre-los-perros.jpg",
   "description": "Description Description Description Description Description Description Description Description",
+  "media": {
+    "video": "",
+    "image": ""
+  },
   "like": true,
   "likeCounter": 1,
   'date': new Date('2014-03-01T08:00:00Z'),
 },
 {
-  "name": "Julio Cortazar",
-  "image": 'https://cdn.forbes.com.mx/2018/12/perro_china-640x360.jpg',
+  "name": "Emanuel Altamirano",
+  "image": "https://cdn.forbes.com.mx/2018/12/perro_china-640x360.jpg",
   "description": "Description Description Description Description Description Description Description Description",
+  "media": {
+    "video": "",
+    "image": "https://ep01.epimg.net/elpais/imagenes/2018/06/25/buenavida/1529929537_419627_1529933291_noticia_normal_recorte1.jpg"
+  },
   "like": true,
   "likeCounter": 4,
   'date': new Date('2014-03-01T08:00:00Z'),
 },
 {
   "name": "Jorge Luis Borges",
-  "image": 'https://www.hola.com/imagenes/estar-bien/20190820147813/razas-perros-pequenos-parecen-grandes/0-711-550/razas-perro-pequenos-grandes-a.jpg',
+  "image": "https://www.infobae.com/new-resizer/OwKXkZCSJl6o9CYFh6899CXoRjU=/1200x800/filters:format(jpg):quality(85)/arc-anglerfish-arc2-prod-infobae.s3.amazonaws.com/public/RTKQTNJ3I5EX3AC55NTFBNOOYI.jpg",
   "description": "Description Description Description Description Description Description Description Description",
+  "media": {
+    "video": "",
+    "image": ""
+  },
   "like": false,
   "likeCounter": 2,
-  'date': new Date('2014-03-01T08:00:00Z'),
-},
-{
-  "name": "Jorge Luis Borges",
-  "image": 'https://www.ecestaticos.com/image/clipping/557/418/7052744faf519355ca32636cf370cf63/tres-estudios-que-han-cambiado-todo-lo-que-creiamos-sobre-los-perros.jpg',
-  "description": "Description Description Description Description Description Description Description Description",
-  "like": true,
-  "likeCounter": 1,
-  'date': new Date('2014-03-01T08:00:00Z'),
-},
-{
-  "name": "Julio Cortazar",
-  "image": 'https://cdn.forbes.com.mx/2018/12/perro_china-640x360.jpg',
-  "description": "Description Description Description Description Description Description Description Description",
-  "like": false,
-  "likeCounter": 0,
-  'date': new Date('2014-03-01T08:00:00Z'),
-},
-{
-  "name": "Jorge Luis Borges",
-  "image": 'https://www.hola.com/imagenes/estar-bien/20190820147813/razas-perros-pequenos-parecen-grandes/0-711-550/razas-perro-pequenos-grandes-a.jpg',
-  "description": "Description Description Description Description Description Description Description Description",
-  "like": true,
-  "likeCounter": 1,
   'date': new Date('2014-03-01T08:00:00Z'),
 }]
 );

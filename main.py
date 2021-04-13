@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, Response
+from flask import Flask, jsonify, request, Response, Blueprint
 from flask_pymongo import PyMongo
 from flask_swagger_ui import get_swaggerui_blueprint
 from bson import json_util, objectid
@@ -20,20 +20,13 @@ if os.path.exists('.env'):
 # Initialize Flask.
 app = Flask(__name__)
 app.config['MONGO_URI'] = os.environ['MONGODB_URI']
-
-# app.register_blueprint(simple_page)
-
-                           
-
 mongo = PyMongo(app)
 
 ### swagger specific ###
 SWAGGER_URL = '/swagger'
 API_URL = '/static/swagger.json'
 
-@app.route('/swagger', methods=['GET'])
-def send_swagger():
-    response = get_swaggerui_blueprint(
+simple_page = get_swaggerui_blueprint(
         SWAGGER_URL,
         API_URL,
         config={
@@ -41,7 +34,7 @@ def send_swagger():
         }
     )
 
-    return render_template(response)
+app.register_blueprint(simple_page)
 
 @app.route('/static/<path:path>', methods=['GET'])
 def send_static():
@@ -70,6 +63,7 @@ def PostFeed():
         name = content['name']
         image = content['image']
         description = content['description']
+        media = content['media']
     except KeyError as e:
         # Build Response.
         response = jsonify({'message': 'You are missing the %s field.' % e})
@@ -87,6 +81,7 @@ def PostFeed():
     post_id = mongo.db.feed.insert_one({ 'name': name,
                                          'image': image,
                                          'description': description,
+                                         'media': media,
                                          'like': False,
                                          'likeCounter': 0,
                                          'date': datetime.datetime.now() }).inserted_id
@@ -147,7 +142,48 @@ def PatchImageFeed(id):
         return "Something is wrong with the json that you try to submit."
     
     # Update post.
-    update_post = mongo.db.feed.update_one( {'_id': ObjectId(id), }, { "$set": { 'image': image, }})
+    update_post = mongo.db.feed.update_one( {'_id': ObjectId(id), }, { "$set": { 'media': {'image':image, 'video':''} }})
+    
+    # Build Response.
+    response = jsonify({'message': id + ' image updated Successfully'})
+    response.status_code = 202
+    
+    return response
+
+@app.route('/feed/video/<id>', methods=['PATCH'])
+def PatchVideoFeed(id):
+    
+    # Check if the id exists.
+    find_post = mongo.db.feed.find_one({'_id': ObjectId(id), })
+    if (find_post is None):
+        # Build Response.
+        response = jsonify({'message': id + ' doesn''t exists.'})
+        response.status_code = 404
+        return response
+
+    content = request.json
+
+    # Validate if data is complete.
+    try:
+        video = content['video']
+        
+        # Bool validation in like.
+        if (not type(video).__name__ == 'str' ):
+            # Build Response.
+            response = jsonify({'message': 'image must be a string.'})
+            response.status_code = 415
+            return response
+
+    except KeyError as e:
+        # Build Response.
+        response = jsonify({'message': 'You are missing the %s field.' % e})
+        response.status_code = 400
+        return response
+    except:
+        return "Something is wrong with the json that you try to submit."
+    
+    # Update post.
+    update_post = mongo.db.feed.update_one( {'_id': ObjectId(id), }, { "$set": { 'media': {'image':'', 'video':video} }})
     
     # Build Response.
     response = jsonify({'message': id + ' image updated Successfully'})
