@@ -6,26 +6,16 @@
 	},
 	"item": [
 		{
-			"name": "Update description.",
+			"name": "Get all Feed.",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Ocp-Apim-Subscription-Key",
-						"value": "11613e8831944d8ca05a51b3cdeff135",
-						"type": "text",
-						"disabled": true
-					},
-					{
-						"key": "Ocp-Apim-Trace",
-						"value": "true",
-						"type": "text",
-						"disabled": true
-					}
-				],
+				"method": "GET",
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"description\": \"Mira mi fabuloso gato.\"\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -33,24 +23,25 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseURL}}/feed/description/606e5d9f0416dd3bb317b32e",
+					"raw": "{{baseURL}}/feed",
 					"host": [
 						"{{baseURL}}"
 					],
 					"path": [
-						"feed",
-						"description",
-						"606e5d9f0416dd3bb317b32e"
+						"feed"
 					]
 				},
-				"description": "Update post's description."
+				"description": "Get all Feed."
 			},
 			"response": []
 		},
 		{
-			"name": "Update image.",
+			"name": "Get post by Id.",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "PATCH",
+				"method": "GET",
 				"header": [
 					{
 						"key": "Ocp-Apim-Subscription-Key",
@@ -67,7 +58,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"image\": \"https://cdn.forbes.com.mx/2018/12/perro_china-640x360.jpg\"\n}",
+					"raw": "{\n  \"name\": \"Mateo Iturriaga\",\n  \"image\": \"https://cdn.forbes.com.mx/2018/12/perro_china-640x360.jpg\",\n  \"description\": \"Mira mi fabuloso perro\",\n  \"like\": false,\n  \"date\": \"2014-03-01T08:00:00Z\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -75,17 +66,15 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseURL}}/feed/image/606e5d9f0416dd3bb317b32e",
+					"raw": "{{baseURL}}/feed/60749e9cf3cd3f8e0fb94901",
 					"host": [
 						"{{baseURL}}"
 					],
 					"path": [
 						"feed",
-						"image",
-						"606e5d9f0416dd3bb317b32e"
+						"60749e9cf3cd3f8e0fb94901"
 					]
-				},
-				"description": "Update post's image URL."
+				}
 			},
 			"response": []
 		},
@@ -171,36 +160,6 @@
 			"response": []
 		},
 		{
-			"name": "Get all Feed.",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseURL}}/feed",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"feed"
-					]
-				},
-				"description": "Get all Feed."
-			},
-			"response": []
-		},
-		{
 			"name": "Increase likes",
 			"request": {
 				"method": "PUT",
@@ -241,6 +200,90 @@
 				"description": "Decrease likes in feed."
 			},
 			"response": []
+		},
+		{
+			"name": "Update description.",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "11613e8831944d8ca05a51b3cdeff135",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Ocp-Apim-Trace",
+						"value": "true",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Mira mi fabuloso gato.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/feed/description/606e5d9f0416dd3bb317b32e",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"feed",
+						"description",
+						"606e5d9f0416dd3bb317b32e"
+					]
+				},
+				"description": "Update post's description."
+			},
+			"response": []
+		},
+		{
+			"name": "Update image.",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "11613e8831944d8ca05a51b3cdeff135",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Ocp-Apim-Trace",
+						"value": "true",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"image\": \"https://cdn.forbes.com.mx/2018/12/perro_china-640x360.jpg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/feed/image/606e5d9f0416dd3bb317b32e",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"feed",
+						"image",
+						"606e5d9f0416dd3bb317b32e"
+					]
+				},
+				"description": "Update post's image URL."
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -265,7 +308,7 @@
 	],
 	"variable": [
 		{
-			"id": "96a12c88-b5a7-4bb4-a4d2-6479220debdc",
+			"id": "4ff089e1-bb34-4ad2-8c5f-c6a2efdc9b81",
 			"key": "baseURL",
 			"value": "http://0.0.0.0:5000"
 		}

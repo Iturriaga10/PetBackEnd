@@ -142,7 +142,48 @@ def PatchImageFeed(id):
         return "Something is wrong with the json that you try to submit."
     
     # Update post.
-    update_post = mongo.db.feed.update_one( {'_id': ObjectId(id), }, { "$set": { 'image': image, }})
+    update_post = mongo.db.feed.update_one( {'_id': ObjectId(id), }, { "$set": { 'media': {'image':image, 'video':''} }})
+    
+    # Build Response.
+    response = jsonify({'message': id + ' image updated Successfully'})
+    response.status_code = 202
+    
+    return response
+
+@app.route('/feed/video/<id>', methods=['PATCH'])
+def PatchVideoFeed(id):
+    
+    # Check if the id exists.
+    find_post = mongo.db.feed.find_one({'_id': ObjectId(id), })
+    if (find_post is None):
+        # Build Response.
+        response = jsonify({'message': id + ' doesn''t exists.'})
+        response.status_code = 404
+        return response
+
+    content = request.json
+
+    # Validate if data is complete.
+    try:
+        video = content['video']
+        
+        # Bool validation in like.
+        if (not type(video).__name__ == 'str' ):
+            # Build Response.
+            response = jsonify({'message': 'image must be a string.'})
+            response.status_code = 415
+            return response
+
+    except KeyError as e:
+        # Build Response.
+        response = jsonify({'message': 'You are missing the %s field.' % e})
+        response.status_code = 400
+        return response
+    except:
+        return "Something is wrong with the json that you try to submit."
+    
+    # Update post.
+    update_post = mongo.db.feed.update_one( {'_id': ObjectId(id), }, { "$set": { 'media': {'image':'', 'video':video} }})
     
     # Build Response.
     response = jsonify({'message': id + ' image updated Successfully'})

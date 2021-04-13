@@ -1,53 +1,49 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "description": "sean",
+    "description": "PetStagram Backend",
     "version": "1.0.0",
-    "title": "Seans-Python3-Flask-Rest-Boilerplate",
-    "license": {
-      "name": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
-    }
+    "title": "PetStagram"
   },
   "servers": [
     {
-      "url": "/"
+      "url": "http://localhost:5000"
     }
   ],
   "tags": [
     {
-      "name": "Book Request",
-      "description": "Example API for requesting and return book requests"
+      "name": "Feed Request",
+      "description": "Dogstagram API for requesting the main feed."
     }
   ],
   "paths": {
-    "/request": {
+    "/feed": {
       "get": {
         "tags": [
-          "Book Request"
+          "Feed Request"
         ],
-        "summary": "Returns bookRequests",
+        "summary": "Returns feed request.",
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/components/schemas/bookRequests"
+              "$ref": "#/components/schemas/feedRequestPostBody"
             }
           }
         }
       },
       "post": {
         "tags": [
-          "Book Request"
+          "Feed Request"
         ],
-        "summary": "Create a new book request system",
+        "summary": "Create a new post in the feed.",
         "requestBody": {
-          "description": "Book Request Post Object",
+          "description": "Feed Request Post Object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/bookRequestPostBody"
+                "$ref": "#/components/schemas/feedRequestPostBody"
               }
             }
           }
@@ -63,32 +59,35 @@
             }
           },
           "400": {
-            "description": "Failed. Bad post data."
+            "description": "You are missing some field."
+          },
+          "415": {
+            "description": "Data type incorrect."
           }
         }
       }
     },
-    "/request/{id}": {
+    "/feed/{id}": {
       "parameters": [
         {
           "name": "id",
           "in": "path",
           "required": true,
-          "description": "ID of the cat that we want to match",
+          "description": "ID of the post that we want to match",
           "type": "string"
         }
       ],
       "get": {
+        "summary": "Get Feed Request by ID",
         "tags": [
-          "Book Request"
+          "Feed Request"
         ],
-        "summary": "Get book request with given ID",
         "parameters": [
           {
             "in": "path",
             "name": "id",
             "required": true,
-            "description": "Book Request id",
+            "description": "Feed Request Id",
             "schema": {
               "$ref": "#/components/schemas/id"
             }
@@ -98,70 +97,22 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/components/schemas/bookRequest"
-            }
-          },
-          "400": {
-            "description": "Failed. Misunderstood Request."
-          },
-          "404": {
-            "description": "Failed. Book request not found."
-          }
-        }
-      },
-      "put": {
-        "summary": "edit a book request by ID",
-        "tags": [
-          "Book Request"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "description": "Book Request id",
-            "schema": {
               "$ref": "#/components/schemas/id"
             }
-          }
-        ],
-        "requestBody": {
-          "description": "Book Request Object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/bookRequest"
-              }
-            }
-          }
-        },
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/components/schemas/bookRequest"
-            }
-          },
-          "400": {
-            "description": "Failed. Bad post data."
           }
         }
       },
       "delete": {
-        "summary": "Delete Book Request by ID",
+        "summary": "Delete Feed Request by ID",
         "tags": [
-          "Book Request"
+          "Feed Request"
         ],
         "parameters": [
           {
             "in": "path",
             "name": "id",
             "required": true,
-            "description": "Book Request Id",
+            "description": "Feed Request Id",
             "schema": {
               "$ref": "#/components/schemas/id"
             }
@@ -174,16 +125,242 @@
               "$ref": "#/components/schemas/id"
             }
           },
-          "400": {
-            "description": "Failed. Misunderstood Request."
+          "404": {
+            "description": "Id doesn't exists."
+          }
+        }
+      }
+    },
+    "/feed/like/increase/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the post that we want to match",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "summary": "Update(increase) likeCounter by ID",
+        "tags": [
+          "Feed Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Feed Request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/feedResponse"
+            }
           },
           "404": {
-            "description": "Failed. Book Request not found."
+            "description": "Id doesn't exists."
+          }
+        }
+      }
+    },
+    "/feed/like/decrease/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the post that we want to match",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "summary": "Update(decrease) likeCounter by ID",
+        "tags": [
+          "Feed Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Feed Request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/feedResponse"
+            }
+          },
+          "404": {
+            "description": "Id doesn't exists."
+          }
+        }
+      }
+    },
+    "/feed/image/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the post that we want to match",
+          "type": "string"
+        }
+      ],
+      "patch": {
+        "summary": "Update image in Post by ID",
+        "tags": [
+          "Feed Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Feed Request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Feed Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateImage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/feedResponse"
+            }
+          },
+          "404": {
+            "description": "Id doesn't exists."
+          }
+        }
+      }
+    },
+    "/feed/video/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the post that we want to match",
+          "type": "string"
+        }
+      ],
+      "patch": {
+        "summary": "Update video in Post by ID",
+        "tags": [
+          "Feed Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Feed Request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Feed Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateVideo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/feedResponse"
+            }
+          },
+          "404": {
+            "description": "Id doesn't exists."
+          }
+        }
+      }
+    },
+    "/feed/description/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the post that we want to match",
+          "type": "string"
+        }
+      ],
+      "patch": {
+        "summary": "Update description in Post by ID",
+        "tags": [
+          "Feed Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Feed Request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Feed Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateDescription"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/feedResponse"
+            }
+          },
+          "404": {
+            "description": "Id doesn't exists."
           }
         }
       }
     }
   },
+  
   "components": {
     "schemas": {
       "id": {
@@ -193,45 +370,65 @@
           }
         }
       },
-      "bookRequestPostBody": {
+      "feedRequestPostBody": {
         "type": "object",
         "properties": {
-          "title": {
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "format": "URL"
+          },
+          "description": {
             "type": "string",
             "format": "string"
           },
-          "email": {
-            "type": "string",
-            "format": "email"
-          }
-        }
-      },
-      "bookRequest": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "format": "string"
-          },
-          "email": {
-            "type": "string",
-            "format": "email"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "number"
-          }
-        }
-      },
-      "bookRequests": {
-        "type": "object",
-        "properties": {
-          "bookRequest": {
+          "media": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/bookRequest"
+            "properties": {
+              "video": {
+                "type": "string",
+                "format": "URL"
+              },
+              "image": {
+                "type": "string",
+                "format": "URL"
+              }
             }
-          }
+          }  
+        }
+      },
+      "feedResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }        
+        }
+      },
+      "updateImage": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string"
+          }        
+        }
+      },
+      "updateVideo": {
+        "type": "object",
+        "properties": {
+          "video": {
+            "type": "string"
+          }        
+        }
+      },
+      "updateDescription": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          }        
         }
       }
     }
