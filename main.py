@@ -1,12 +1,13 @@
 from flask import Flask, jsonify, request, Response, Blueprint
 from flask_pymongo import PyMongo
-from flask_swagger_ui import get_swaggerui_blueprint
 from bson import json_util, objectid
 from bson.objectid import ObjectId
 import datetime
 import logging
 import os
 import json
+from Controllers.UserController import user
+from Controllers.SwaggerController import simple_page
 
 # Define logger.
 LOGGER = logging.getLogger(__name__)
@@ -22,19 +23,8 @@ app = Flask(__name__)
 app.config['MONGO_URI'] = os.environ['MONGODB_URI']
 mongo = PyMongo(app)
 
-### swagger specific ###
-SWAGGER_URL = '/swagger'
-API_URL = '/static/swagger.json'
-
-simple_page = get_swaggerui_blueprint(
-        SWAGGER_URL,
-        API_URL,
-        config={
-            'app_name': "Dogstagram"
-        }
-    )
-
 app.register_blueprint(simple_page)
+app.register_blueprint(user, url_prefix='/user')
 
 @app.route('/static/<path:path>', methods=['GET'])
 def send_static():
