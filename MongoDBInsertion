@@ -47,3 +47,22 @@ db.feed.insertMany(
 // Run a find command to view items.
 use('Pets');
 db.feed.find({});
+
+
+### Users Insertion.
+
+// Select the database to use.
+use('myFirstDatabase');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.users.drop();
+
+// Insert a few documents into the sales collection.
+db.users.insertMany([
+  { 'username': 'Julio Cortazar', 'email': 'cortazar@gmail.com', 'password': 'allfiresthefire', 'address':'Argentina', 'profileImage':'https://es.wikipedia.org/wiki/Julio_Cort%C3%A1zar#/media/Archivo:Cort%C3%A1zar.jpg', 'pets':['dog'], 'date': new Date('2014-03-01T08:00:00Z') },
+  { 'username': 'Elena Poniatowska', 'email': 'poniatowskaelena@hotmail.com', 'password': 'mexicancolor', 'address':'Mexico', 'profileImage':'https://www.eternacadencia.com.ar/cache/com_zoo/images/Elena_Poniatowska_da87668863090d418b177ada1253c18d.png', 'pets':['cat', 'dog'], 'date': new Date('2014-03-01T09:00:00Z') },
+]);
+
+// Run a find command to view items sold on April 4th, 2014.
+db.users.find({ });

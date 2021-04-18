@@ -58,6 +58,7 @@ def PostFeed():
         # Build Response.
         response = jsonify({'message': 'You are missing the %s field.' % e})
         response.status_code = 400
+        return response
     except:
         return "Something is wrong with the json that you try to submit."
     
