@@ -1,0 +1,249 @@
+{
+	"info": {
+		"_postman_id": "3b94e8ba-e5c6-41a0-a385-5048aa551def",
+		"name": "Dogstagram User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"cortazar@gmail.com\",\n    \"password\": \"allfiresthefire\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/user/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				},
+				"description": "Check User and Password."
+			},
+			"response": []
+		},
+		{
+			"name": "Signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"David Iturriaga\",\n    \"email\": \"iturriaga_david@hotmail.com\",\n    \"password\": \"Dominio.11\",\n    \"address\": \"Mexico\",\n    \"profileImage\": \"https://es.wikipedia.org/wiki/Julio_Cort%C3%A1zar#/media/Archivo:Cort%C3%A1zar.jpg\",\n    \"pets\": [\n    \"dog\", \"cat\"\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/user/signin",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"user",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user.",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/user/607af197c4efbad541c1eccb",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"user",
+						"607af197c4efbad541c1eccb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update username.",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"David Iturriaga\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/user/username/607c665e0db7f7a686242015",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"user",
+						"username",
+						"607c665e0db7f7a686242015"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update password.",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\": \"Dominio.11\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/user/password/607af197c4efbad541c1eccb",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"user",
+						"password",
+						"607af197c4efbad541c1eccb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update address.",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address\": \"CD Mex\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/user/address/607af197c4efbad541c1eccb",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"user",
+						"address",
+						"607af197c4efbad541c1eccb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update profile image.",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address\": \"CD Mex\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/user/profileImage/607af197c4efbad541c1eccb",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"user",
+						"profileImage",
+						"607af197c4efbad541c1eccb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update pets.",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pets\": [\"cat\", \"dog\", \"frog\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/user/pets/607af197c4efbad541c1eccb",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"user",
+						"pets",
+						"607af197c4efbad541c1eccb"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "f7fe464d-411e-427f-ab67-558372c386e0",
+			"key": "baseURL",
+			"value": " http://localhost:5000"
+		}
+	]
+}
