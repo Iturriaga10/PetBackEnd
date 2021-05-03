@@ -1,0 +1,435 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "PetStagram Backend",
+        "version": "1.0.0",
+        "title": "PetStagram"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Feed Request",
+            "description": "Dogstagram API for requesting the main feed."
+        }
+    ],
+    "paths": {
+        "/feed": {
+            "get": {
+                "tags": [
+                    "Feed Request"
+                ],
+                "summary": "Returns feed request.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/feedRequestPostBody"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Feed Request"
+                ],
+                "summary": "Create a new post in the feed.",
+                "requestBody": {
+                    "description": "Feed Request Post Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/feedRequestPostBody"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    },
+                    "400": {
+                        "description": "You are missing some field."
+                    },
+                    "415": {
+                        "description": "Data type incorrect."
+                    }
+                }
+            }
+        },
+        "/feed/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the post that we want to match",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "summary": "Get Feed Request by ID",
+                "tags": [
+                    "Feed Request"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Feed Request Id",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Feed Request by ID",
+                "tags": [
+                    "Feed Request"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Feed Request Id",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    },
+                    "404": {
+                        "description": "Id doesn't exists."
+                    }
+                }
+            }
+        },
+        "/feed/like/increase/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the post that we want to match",
+                    "type": "string"
+                }
+            ],
+            "put": {
+                "summary": "Update(increase) likeCounter by ID",
+                "tags": [
+                    "Feed Request"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Feed Request Id",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/feedResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Id doesn't exists."
+                    }
+                }
+            }
+        },
+        "/feed/like/decrease/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the post that we want to match",
+                    "type": "string"
+                }
+            ],
+            "put": {
+                "summary": "Update(decrease) likeCounter by ID",
+                "tags": [
+                    "Feed Request"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Feed Request Id",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/feedResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Id doesn't exists."
+                    }
+                }
+            }
+        },
+        "/feed/image/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the post that we want to match",
+                    "type": "string"
+                }
+            ],
+            "patch": {
+                "summary": "Update image in Post by ID",
+                "tags": [
+                    "Feed Request"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Feed Request Id",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Feed Request Post Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/updateImage"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/feedResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Id doesn't exists."
+                    }
+                }
+            }
+        },
+        "/feed/video/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the post that we want to match",
+                    "type": "string"
+                }
+            ],
+            "patch": {
+                "summary": "Update video in Post by ID",
+                "tags": [
+                    "Feed Request"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Feed Request Id",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Feed Request Post Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/updateVideo"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/feedResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Id doesn't exists."
+                    }
+                }
+            }
+        },
+        "/feed/description/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the post that we want to match",
+                    "type": "string"
+                }
+            ],
+            "patch": {
+                "summary": "Update description in Post by ID",
+                "tags": [
+                    "Feed Request"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Feed Request Id",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Feed Request Post Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/updateDescription"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/feedResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Id doesn't exists."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "id": {
+                "properties": {
+                    "uuid": {
+                        "type": "string"
+                    }
+                }
+            },
+            "feedRequestPostBody": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string",
+                        "format": "URL"
+                    },
+                    "description": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "media": {
+                        "type": "object",
+                        "properties": {
+                            "video": {
+                                "type": "string",
+                                "format": "URL"
+                            },
+                            "image": {
+                                "type": "string",
+                                "format": "URL"
+                            }
+                        }
+                    }
+                }
+            },
+            "feedResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            },
+            "updateImage": {
+                "type": "object",
+                "properties": {
+                    "image": {
+                        "type": "string"
+                    }
+                }
+            },
+            "updateVideo": {
+                "type": "object",
+                "properties": {
+                    "video": {
+                        "type": "string"
+                    }
+                }
+            },
+            "updateDescription": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
